@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 public class App {
     public static void main(String[] args) {
-       
+        // Executa a interface gráfica
+        AppGUI.runApp();
+        
         String filePath = "src/main/ficheiros/Madeira-Moodle.csv";
         String separador = ";";
         CsvReader csvReader = new CsvReader(filePath, separador);
@@ -23,7 +25,6 @@ public class App {
             // Converte cada linha para um objeto CsvRecord e mostra os dados
             System.out.println("\nConteúdo do ficheiro:");
             List<CsvRecord> records = new ArrayList<>();
-            // Use the records list
             System.out.println("\nTotal records: " + records.size());
             for (Map<String, String> recordData : csvReader.getRecords()) {
                 CsvRecord record = new CsvRecord(recordData);
