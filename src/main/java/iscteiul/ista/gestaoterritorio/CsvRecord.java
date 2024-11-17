@@ -1,4 +1,4 @@
-package com.example;
+package iscteiul.ista.gestaoterritorio;
 import java.util.Map;
 
 public class CsvRecord {

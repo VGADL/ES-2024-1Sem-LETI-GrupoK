@@ -1,17 +1,21 @@
-package com.example;
+package iscteiul.ista.gestaoterritorio;
+
+import javafx.application.Application;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 public class App {
     public static void main(String[] args) {
-        // Executa a interface gráfica
-        AppGUI.runApp();
-        
+        // Lança a aplicação JavaFX a partir da classe AppGUI
+        Application.launch(AppGUI.class, args);
+
         String filePath = "src/main/ficheiros/Madeira-Moodle.csv";
         String separador = ";";
         CsvReader csvReader = new CsvReader(filePath, separador);
-        
+
         try {
             // Lê o ficheiro csv
             csvReader.readFile();
