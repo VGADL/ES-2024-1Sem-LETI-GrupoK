@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="iscteiul.ista.gestaoterritorio.MenuController"
             prefHeight="400.0" prefWidth="600.0">
-     <children>
-            <!-- Título do menu -->
-            <Text text="Menu Principal" layoutX="220.0" layoutY="50.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-
-            <!-- Botão para acessar a funcionalidade de procurar terrenos -->
-            <Button text="Procurar Terreno" fx:id="searchLandButton" layoutX="225.0" layoutY="150.0" prefWidth="150.0" onAction="#procurarTerrenoClick" />
-
-            <!-- Outros botões (exemplo de expansão futura) -->
-            <Button text="Visualizar Grafo de Propriedades" layoutX="225.0" layoutY="200.0" prefWidth="150.0"  />
-            <Button text="Calcular Área Média" layoutX="225.0" layoutY="250.0" prefWidth="150.0"  />
-
-            <!-- Sair -->
-            <Button text="Sair" layoutX="225.0" layoutY="300.0" prefWidth="150.0" onAction="#close"/>
-        </children>
+    <children>
+        <VBox spacing="20.0" alignment="CENTER"
+              AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Text text="Menu Principal"
+                      style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <Button text="Procurar Terreno" fx:id="searchLandButton" prefWidth="200.0" onAction="#procurarTerrenoClick" />
+                <Button text="Visualizar Grafo de Propriedades" onAction="#vizualizarGrafoClick" prefWidth="200.0" />
+                <Button text="Calcular Área Média" prefWidth="200.0" onAction="#calcularAreaClick"/>
+                <Button text="Sair" onAction="#close" prefWidth="200.0" />
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

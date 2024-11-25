@@ -18,17 +18,16 @@ public class MenuController implements Initializable {
     protected void procurarTerrenoClick(ActionEvent event) {
         AppGUI.mudarScene(2);
     }
-    /**
+
     @FXML
     protected void vizualizarGrafoClick(ActionEvent event) {
-
+        AppGUI.mudarScene(3);
     }
 
     @FXML
     protected void calcularAreaClick(ActionEvent event) {
-
+        AppGUI.mudarScene(4);
     }
-    **/
 
     @FXML
     void close(ActionEvent event) {
