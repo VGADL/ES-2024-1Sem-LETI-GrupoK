@@ -26,6 +26,7 @@ public class SearchController implements Initializable {
     private TextField searchField;
     @FXML
     private Label averageResultLabel;
+
     /**
      * função para fechar o programa
      * @param event

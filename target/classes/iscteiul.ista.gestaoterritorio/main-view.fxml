@@ -12,7 +12,6 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iscteiul.ista.gestaoterritorio.SearchController">
    <children>
-      <!-- Menu Bar -->
       <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
             <Menu mnemonicParsing="false" text="File">
@@ -27,15 +26,14 @@
             </Menu>
          </menus>
       </MenuBar>
-      <!-- Search Section -->
+
       <VBox spacing="10" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
          <HBox prefHeight="41.0" prefWidth="760.0" spacing="10">
             <TextField fx:id="searchIdField" promptText="Digite o ID do terreno" />
-            <Button onAction="#procurarPorID" text="Procurar po Id" />
+            <Button onAction="#procurarPorID" text="Procurar por Id" />
          </HBox>
       </VBox>
 
-      <!-- ListView Section to display CSV data -->
       <VBox AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <Button onAction="#showAll" text="Mostrar TUDO" />
          <ListView fx:id="listView" prefHeight="400.0" prefWidth="760.0" />

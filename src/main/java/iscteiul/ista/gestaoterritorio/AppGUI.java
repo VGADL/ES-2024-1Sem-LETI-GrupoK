@@ -15,7 +15,7 @@ public class AppGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Carregar os arquivos FXML
-        FXMLLoader Menu = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Menu-view.fxml"));
+        FXMLLoader Menu = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/menu-view.fxml"));
         FXMLLoader procuraID = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/main-view.fxml"));
 
         stage=primaryStage;
