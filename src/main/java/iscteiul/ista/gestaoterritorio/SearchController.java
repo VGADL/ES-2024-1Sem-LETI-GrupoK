@@ -15,14 +15,13 @@ import java.util.ResourceBundle;
 public class SearchController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        graphManager.buildGraph(records); // Constrói o grafo com os dados lidos
+
     }
     @FXML
     private ListView<String> listView;
     @FXML
     private TextField searchIdField;
 
-    private final GraphManager graphManager = new GraphManager();
     private final CsvReader csvReader = new CsvReader("src/main/ficheiros/Madeira-Moodle-1.1.csv", ";");
     private List<CsvRecord> records = new ArrayList<>();
     /**
@@ -84,7 +83,7 @@ public class SearchController implements Initializable {
 
         }
     }
-
+/**
     @FXML
     private void showAdjacencies(ActionEvent event) {
         listView.getItems().clear();
@@ -103,6 +102,7 @@ public class SearchController implements Initializable {
             listView.getItems().addAll(adjacencies);
         }
     }
+    */
     public void Alerta(String title, String header, String description,Alert.AlertType type){
         Alert alert = new Alert(type);
         alert.setTitle(title);

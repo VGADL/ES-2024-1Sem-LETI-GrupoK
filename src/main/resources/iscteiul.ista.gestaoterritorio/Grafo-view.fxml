@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="iscteiul.ista.gestaoterritorio.GrafoController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Button onAction="#goBack" text="Voltar" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0"  prefWidth="100.0" />
+    </children>
+</AnchorPane>

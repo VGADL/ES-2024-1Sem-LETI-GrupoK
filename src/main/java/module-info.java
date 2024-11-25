@@ -7,7 +7,6 @@ module iscteiul.ista.tictactoefx {
         requires org.locationtech.jts;
 
         opens iscteiul.ista.gestaoterritorio to javafx.fxml;
-    requires org.jfree.jfreechart;
     requires java.desktop;
     exports iscteiul.ista.gestaoterritorio;
 }
