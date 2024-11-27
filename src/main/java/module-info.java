@@ -5,8 +5,9 @@ module iscteiul.ista.tictactoefx {
         requires org.apiguardian.api;
         requires org.jgrapht.core;
         requires org.locationtech.jts;
+        requires java.desktop;
 
-        opens iscteiul.ista.gestaoterritorio to javafx.fxml;
-    requires java.desktop;
+    opens iscteiul.ista.gestaoterritorio to javafx.fxml;
+
     exports iscteiul.ista.gestaoterritorio;
 }

@@ -17,7 +17,7 @@ public class AppGUI extends Application {
         // Carregar os arquivos FXML
         FXMLLoader Menu = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Menu-view.fxml"));
         FXMLLoader Search = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Search-view.fxml"));
-        FXMLLoader Grafo = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Grafo-view.fxml"));
+        FXMLLoader Grafo = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Graph-view.fxml"));
         FXMLLoader Media = new FXMLLoader(getClass().getResource("/iscteiul.ista.gestaoterritorio/Media-view.fxml"));
         stage=primaryStage;
         // Definir o título e a cena

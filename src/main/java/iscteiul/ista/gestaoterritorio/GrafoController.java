@@ -9,13 +9,10 @@ import java.util.ResourceBundle;
 
 public class GrafoController implements Initializable {
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-
-
 
     @FXML
     protected void goBack(ActionEvent event) {

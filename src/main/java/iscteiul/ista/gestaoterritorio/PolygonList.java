@@ -1,40 +1,49 @@
 package iscteiul.ista.gestaoterritorio;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PolygonList {
-    private final Map<String, String> polygonMap;
+    private Map<String, String> polygonMap;
 
     public PolygonList() {
         this.polygonMap = new HashMap<>();
     }
 
+    public void setPolygons(Map<String, String> polygons) {
+        polygonMap = polygons;
+    }
+
     /**
-     * Processa os registos lidos do arquivo CSV e armazena os polígonos na lista.
+     * Processa os registos lidos do ficheiro CSV e armazena os polígonos na lista.
      *
      * @param records Lista de registos lidos pelo CsvReader.
      */
     public void processRecords(List<Map<String, String>> records) {
         for (Map<String, String> record : records) {
-            String id = record.get("OBJECTID"); // Pega o ID do registo
-            String geometry = record.get("geometry"); // Pega o campo 'geometry'
+            String id = record.get("OBJECTID"); // Vai buscar o ID do registo
+            String geometry = record.get("geometry"); // Vai buscar o campo 'geometry'
 
             if (geometry != null && geometry.startsWith("MULTIPOLYGON")) {
                 processMultipolygon(id, geometry);
             }
         }
+
+        // Ordena o mapa de polígonos por ID
+        polygonMap = sortPolygonMap(polygonMap);
     }
 
     /**
      * Processa um multipolígono e divide os polígonos individuais.
      *
      * @param id       O ID do registo.
-     * @param geometry A string contendo o multipolígono.
+     * @param geometry A string que contém o multipolígono.
      */
     private void processMultipolygon(String id, String geometry) {
+        // Verifica e ignora polígonos vazios
+        if (geometry.equals("MULTIPOLYGON EMPTY")) {
+            return;
+        }
+
         // Remove o prefixo MULTIPOLYGON (( e os parênteses extras no final
         String multipolygonData = geometry
                 .replace("MULTIPOLYGON (((", "")
@@ -52,9 +61,32 @@ public class PolygonList {
     }
 
     /**
+     * Ordena o mapa de polígonos por ID numericamente com base no valor de x.
+     *
+     * @param unsortedMap O mapa não ordenado.
+     * @return Um mapa ordenado numericamente por x.
+     */
+    private Map<String, String> sortPolygonMap(Map<String, String> unsortedMap) {
+        // Cria uma lista de entradas do mapa
+        List<Map.Entry<String, String>> entries = new ArrayList<>(unsortedMap.entrySet());
+
+        // Ordena as entradas com base no valor numérico de x
+        entries.sort(Comparator.comparingInt(entry -> Integer.parseInt(entry.getKey().split("_")[0])));
+
+        // Adiciona as entradas ordenadas a um LinkedHashMap
+        Map<String, String> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, String> entry : entries) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+
+
+    /**
      * Retorna todos os polígonos processados num mapa.
      *
-     * @return Um mapa contendo os IDs e os respectivos polígonos.
+     * @return Um mapa que contém os IDs e os respectivos polígonos.
      */
     public Map<String, String> getPolygons() {
         return polygonMap;
@@ -70,7 +102,7 @@ public class PolygonList {
             PolygonList polygonList = new PolygonList();
             polygonList.processRecords(csvReader.getRecords());
 
-            // Imprime os polígonos processados
+            // Devolve os polígonos processados
             for (Map.Entry<String, String> entry : polygonList.getPolygons().entrySet()) {
                 System.out.println("ID: " + entry.getKey() + " -> " + entry.getValue());
             }
