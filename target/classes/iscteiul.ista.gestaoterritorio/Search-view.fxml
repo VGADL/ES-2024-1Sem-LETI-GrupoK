@@ -30,7 +30,7 @@
       <VBox spacing="10" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0">
          <HBox prefHeight="41.0" prefWidth="760.0" spacing="10">
             <TextField fx:id="searchIdField" promptText="Digite o ID do terreno" />
-            <Button onAction="#procurarPorID" text="Procurar po Id" />
+            <Button onAction="#procurarPorID" text="Procurar por Id" />
             <Button  text="Mostrar Terrenos Adjacentes" />
          </HBox>
       </VBox>
