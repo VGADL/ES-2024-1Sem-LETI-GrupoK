@@ -87,7 +87,7 @@ public class GraphTerreno {
      * @param polygon2 Representação WKT do segundo polígono.
      * @return true se os polígonos são adjacentes, false caso contrário.
      */
-    private boolean arePolygonsAdjacent(String polygon1, String polygon2) {
+    public boolean arePolygonsAdjacent(String polygon1, String polygon2) {
         List<Coordinate> coordinates1 = extractCoordinates(polygon1);
         List<Coordinate> coordinates2 = extractCoordinates(polygon2);
 
