@@ -17,4 +17,5 @@ public class CsvRecord {
     public String toString() {
         return fields.toString();
     }
+
 }
