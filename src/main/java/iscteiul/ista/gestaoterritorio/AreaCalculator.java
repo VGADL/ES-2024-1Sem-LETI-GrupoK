@@ -23,7 +23,7 @@ public class AreaCalculator {
             String area = record.get("Shape_Area");
             String unit = record.get(administrativeUnitType);
 
-            if (unit.equalsIgnoreCase(administrativeUnitName) || unit.equals("Ilha da Madeira (Madeira)")) {
+            if (unit.equalsIgnoreCase(administrativeUnitName)) {
                 try {
                     totalArea += Double.parseDouble(area);
                     count++;

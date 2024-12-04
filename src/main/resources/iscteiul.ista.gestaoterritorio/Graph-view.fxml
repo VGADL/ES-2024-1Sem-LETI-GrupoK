@@ -2,12 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="iscteiul.ista.gestaoterritorio.GrafoController"
+            fx:controller="iscteiul.ista.gestaoterritorio.GUIController"
             prefHeight="400.0" prefWidth="600.0">
     <children>
 
