@@ -33,7 +33,7 @@ public class AppGUI extends Application {
         sceneGrafo = new Scene(parentGrafo);
         sceneMedia = new Scene(parentMedia);
         primaryStage.setScene(sceneMenu);
-
+        stage.setResizable(false);
         // Exibir a janela
         primaryStage.show();
     }

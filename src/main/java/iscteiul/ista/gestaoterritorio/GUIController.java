@@ -228,6 +228,25 @@ public class GUIController {
             mostrarAlerta("Erro", "Erro ao calcular a área", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+    @FXML
+    private void calculateAreaPorProprietario() {
+        String selectedItem = listView.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            mostrarAlerta("Erro", "Nenhum item selecionado", "Por favor, selecione uma entrada na lista.", Alert.AlertType.WARNING);
+            return;
+        }
+        try {
+            double averageArea = areaCalculator.calculateAverageAreaWithAdjacentProperties(
+                    currentAdministrativeUnitType,
+                    selectedItem,
+                    csvReader,
+                    graphTerreno
+            );
+            areaLabel.setText("Área média: " + averageArea + " m²");
+        } catch (Exception e) {
+            mostrarAlerta("Erro", "Erro ao calcular a área", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
     private void mostrarAlerta(String titulo, String cabecalho, String conteudo, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);

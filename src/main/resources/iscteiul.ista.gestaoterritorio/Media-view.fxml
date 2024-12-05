@@ -3,24 +3,40 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iscteiul.ista.gestaoterritorio.GUIController">
     <children>
-        <VBox spacing="10" AnchorPane.topAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-            <HBox spacing="10">
-                <Button text="Mostrar Freguesias" onAction="#showFreguesias" />
-                <Button text="Mostrar Municípios" onAction="#showMunicipios" />
-                <Button text="Mostrar Ilhas" onAction="#showIlhas" />
+        <ImageView fitHeight="600.0" fitWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../images/papaiCris.png" />
+            </image>
+        </ImageView>
+
+        <VBox spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" AnchorPane.bottomAnchor="80.0" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
+            <Text style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="🌍 Gestão de Territórios" />
+
+            <HBox spacing="10.0" style="-fx-alignment: center;">
+                <Button text="📍 Mostrar Freguesias" onAction="#showFreguesias" style="-fx-font-family: 'Segoe UI Emoji';-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #4CAF50; -fx-background-radius: 10;" />
+                <Button text="🏙️ Mostrar Municípios" onAction="#showMunicipios" style="-fx-font-family: 'Segoe UI Emoji';-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #2196F3; -fx-background-radius: 10;" />
+                <Button text="🏝️ Mostrar Ilhas" onAction="#showIlhas" style="-fx-font-family: 'Segoe UI Emoji';-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #FF9800; -fx-background-radius: 10;" />
             </HBox>
-            <ListView fx:id="listView" prefHeight="400.0" prefWidth="760.0" onMouseClicked="#handleItemClick" />
-            <HBox spacing="10">
-                <Button text="Calcular Área" onAction="#calculateArea" />
+
+            <ListView fx:id="listView" prefHeight="350.0" onMouseClicked="#handleItemClick" style="-fx-border-color: #B0BEC5; -fx-border-radius: 10;" />
+
+            <HBox spacing="10.0" style="-fx-alignment: center;">
+                <Button text="📐 Calcular Área" onAction="#calculateArea" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #673AB7; -fx-background-radius: 10;" />
+                <Button text="🧾 Calcular Área por Proprietário" onAction="#calculateAreaPorProprietario" style="-fx-font-family: 'Segoe UI Emoji';-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #009688; -fx-background-radius: 10;" />
             </HBox>
-            <Label fx:id="areaLabel" text="Área média: " />
+
+            <Label fx:id="areaLabel" text="Área média: " style="-fx-font-size: 16px; -fx-text-fill: white;" />
         </VBox>
-        <Button onAction="#goBack" text="Voltar" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0"  prefWidth="100.0" />
+
+        <Button onAction="#goBack" text="⬅ Voltar" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="20.0" prefWidth="120.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #F44336; -fx-background-radius: 10;" />
     </children>
 </AnchorPane>
