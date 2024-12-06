@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.util.*;
+import javax.swing.JFileChooser;
+import java.io.File;
 
 public class GUIController {
     @FXML
@@ -24,11 +26,7 @@ public class GUIController {
             csvReader = new CsvReader("src/main/ficheiros/Madeira-Moodle-1.1.csv", ";");
             csvReader.readFile();
             areaCalculator = new AreaCalculator();
-//            PolygonList polygonList = new PolygonList();
-//            polygonList.processRecords(csvReader.getRecords());
-//            GraphTerreno terrenoGraph = new GraphTerreno();
-//            terrenoGraph.buildGraph(polygonList);
-//            graphTerreno = terrenoGraph;
+
             PolygonList polygonList = new PolygonList();
             polygonList.processRecords(csvReader.getRecords());
 
