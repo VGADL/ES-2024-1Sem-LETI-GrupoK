@@ -5,8 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
+        <ImageView fitHeight="200.0" fitWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <image>
+                <Image url="@../images/map.png" />
+            </image>
+        </ImageView>
         <Text layoutX="50.0" layoutY="50.0"
               text="Selecione um ficheiro para continuar:"
               style="-fx-font-size: 16px; -fx-font-weight: bold;" />

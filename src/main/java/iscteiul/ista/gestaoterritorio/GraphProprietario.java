@@ -105,53 +105,53 @@ public class GraphProprietario {
     }
 
 
-    public static void main(String[] args) {
-        try {
-            // Caminho para o ficheiro CSV
-            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
-            String delimiter = ";";
-
-            // Lê o ficheiro CSV e processa os polígonos
-            CsvReader csvReader = new CsvReader(filePath, delimiter);
-            csvReader.readFile();
-
-            PolygonList polygonList = new PolygonList();
-            polygonList.processRecords(csvReader.getRecords());
-
-            // Reduz polygonList para apenas os 100 primeiros polígonos
-            Map<String, String> originalPolygons = polygonList.getPolygons();
-            Map<String, String> reducedPolygons = new LinkedHashMap<>();
-
-            int count = 0;
-            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
-                if (count >= 15) break;
-                reducedPolygons.put(entry.getKey(), entry.getValue());
-                count++;
-            }
-
-            polygonList.setPolygons(reducedPolygons);
-
-            // Constrói o grafo de proprietários
-            GraphProprietario proprietarioGraph = new GraphProprietario();
-            proprietarioGraph.buildGraph(polygonList);
-
-            // Log do grafo para validação
-            System.out.println("\nResumo do grafo de proprietários:");
-            proprietarioGraph.getGraph().vertexSet().forEach(owner -> {
-                Set<String> connectedOwners = new HashSet<>();
-                for (DefaultEdge edge : proprietarioGraph.getGraph().edgesOf(owner)) {
-                    String source = proprietarioGraph.getGraph().getEdgeSource(edge);
-                    String target = proprietarioGraph.getGraph().getEdgeTarget(edge);
-                    connectedOwners.add(source.equals(owner) ? target : source);
-                }
-                System.out.println("Proprietário " + owner + " está conectado a: " + connectedOwners);
-            });
-
-        } catch (Exception e) {
-            System.err.println("Ocorreu um erro ao executar o programa:");
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            // Caminho para o ficheiro CSV
+//            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
+//            String delimiter = ";";
+//
+//            // Lê o ficheiro CSV e processa os polígonos
+//            CsvReader csvReader = new CsvReader(filePath, delimiter);
+//            csvReader.readFile();
+//
+//            PolygonList polygonList = new PolygonList();
+//            polygonList.processRecords(csvReader.getRecords());
+//
+//            // Reduz polygonList para apenas os 100 primeiros polígonos
+//            Map<String, String> originalPolygons = polygonList.getPolygons();
+//            Map<String, String> reducedPolygons = new LinkedHashMap<>();
+//
+//            int count = 0;
+//            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
+//                if (count >= 15) break;
+//                reducedPolygons.put(entry.getKey(), entry.getValue());
+//                count++;
+//            }
+//
+//            polygonList.setPolygons(reducedPolygons);
+//
+//            // Constrói o grafo de proprietários
+//            GraphProprietario proprietarioGraph = new GraphProprietario();
+//            proprietarioGraph.buildGraph(polygonList);
+//
+//            // Log do grafo para validação
+//            System.out.println("\nResumo do grafo de proprietários:");
+//            proprietarioGraph.getGraph().vertexSet().forEach(owner -> {
+//                Set<String> connectedOwners = new HashSet<>();
+//                for (DefaultEdge edge : proprietarioGraph.getGraph().edgesOf(owner)) {
+//                    String source = proprietarioGraph.getGraph().getEdgeSource(edge);
+//                    String target = proprietarioGraph.getGraph().getEdgeTarget(edge);
+//                    connectedOwners.add(source.equals(owner) ? target : source);
+//                }
+//                System.out.println("Proprietário " + owner + " está conectado a: " + connectedOwners);
+//            });
+//
+//        } catch (Exception e) {
+//            System.err.println("Ocorreu um erro ao executar o programa:");
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

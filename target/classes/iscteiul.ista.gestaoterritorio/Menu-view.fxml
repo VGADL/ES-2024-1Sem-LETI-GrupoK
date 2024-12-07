@@ -12,17 +12,20 @@
     <children>
         <ImageView fitHeight="600.0" fitWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../images/papaiCris.png" />
+                <Image url="@../images/MAPA.png" />
             </image>
         </ImageView>
+
+        <Button onAction="#selecionarFicheiro" text="📂 Trocar Ficheiro" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" prefWidth="140.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #FFC107; -fx-background-radius: 10;" />
+
 
         <VBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0" style="-fx-background-color: rgba(0, 0, 0, 0.7); -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
 
             <Text style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: white;" text="🌍 Menu Principal" />
 
             <Button fx:id="searchLandButton" onAction="#procurarTerrenoClick" text="🔍 Procurar Terreno" prefWidth="250.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #4CAF50; -fx-background-radius: 10;" />
-            <Button onAction="#vizualizarGrafoClick" text="📊 Visualizar Grafo de Propriedades" prefWidth="250.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #2196F3; -fx-background-radius: 10;" />
             <Button onAction="#calcularAreaClick" text="📐 Calcular Área Média" prefWidth="250.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #673AB7; -fx-background-radius: 10;" />
+            <Button onAction="#vizualizarGrafoClick" text="📊 Sugestões de Trocas" prefWidth="250.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #2196F3; -fx-background-radius: 10;" />
             <Button onAction="#close" text="❌ Sair" prefWidth="250.0" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #F44336; -fx-background-radius: 10;" />
         </VBox>
     </children>

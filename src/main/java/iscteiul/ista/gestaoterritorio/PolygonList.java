@@ -93,7 +93,6 @@ public class PolygonList {
     public Map<String, String> getPolygons() {
         return polygonMap;
     }
-//    private static File selectedFilePath;
 //    public static void main(String[] args) {
 //
 //

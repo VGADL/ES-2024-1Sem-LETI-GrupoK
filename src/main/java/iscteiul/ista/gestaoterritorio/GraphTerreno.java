@@ -165,53 +165,53 @@ public class GraphTerreno {
         return adjacentTerrains;
     }
 
-    public static void main(String[] args) {
-        try {
-            // Caminho para o ficheiro CSV
-            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
-            String delimiter = ";";
-
-            // Lê o ficheiro CSV e processa os polígonos
-            CsvReader csvReader = new CsvReader(filePath, delimiter);
-            csvReader.readFile();
-
-            PolygonList polygonList = new PolygonList();
-            polygonList.processRecords(csvReader.getRecords());
-
-            // Reduz polygonList para apenas os 100 primeiros polígonos
-            Map<String, String> originalPolygons = polygonList.getPolygons();
-            Map<String, String> reducedPolygons = new LinkedHashMap<>();
-
-            int count = 0;
-            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
-                if (count >= 100) break;
-                reducedPolygons.put(entry.getKey(), entry.getValue());
-                count++;
-            }
-
-            polygonList.setPolygons(reducedPolygons);
-
-            // Constrói o grafo de terrenos
-            GraphTerreno terrenoGraph = new GraphTerreno(); // Nome da classe corrigido
-            terrenoGraph.buildGraph(polygonList);
-
-            // Log do grafo para validação
-            System.out.println("\nResumo do grafo:");
-            terrenoGraph.getGraph().vertexSet().forEach(terrainId -> {
-                System.out.println("Terreno " + terrainId + " está conectado a: " +
-                        terrenoGraph.getAdjacentTerrains(terrainId));
-            });
-
-            // Testa o grafo com um terreno específico
-            String testTerrainId = "8"; // Exemplo de terreno para teste
-            System.out.println("\nTerrenos adjacentes ao terreno " + testTerrainId + ":");
-            System.out.println(terrenoGraph.getAdjacentTerrains(testTerrainId));
-
-        } catch (Exception e) {
-            System.err.println("Ocorreu um erro ao executar o programa:");
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        try {
+//            // Caminho para o ficheiro CSV
+//            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
+//            String delimiter = ";";
+//
+//            // Lê o ficheiro CSV e processa os polígonos
+//            CsvReader csvReader = new CsvReader(filePath, delimiter);
+//            csvReader.readFile();
+//
+//            PolygonList polygonList = new PolygonList();
+//            polygonList.processRecords(csvReader.getRecords());
+//
+//            // Reduz polygonList para apenas os 100 primeiros polígonos
+//            Map<String, String> originalPolygons = polygonList.getPolygons();
+//            Map<String, String> reducedPolygons = new LinkedHashMap<>();
+//
+//            int count = 0;
+//            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
+//                if (count >= 100) break;
+//                reducedPolygons.put(entry.getKey(), entry.getValue());
+//                count++;
+//            }
+//
+//            polygonList.setPolygons(reducedPolygons);
+//
+//            // Constrói o grafo de terrenos
+//            GraphTerreno terrenoGraph = new GraphTerreno(); // Nome da classe corrigido
+//            terrenoGraph.buildGraph(polygonList);
+//
+//            // Log do grafo para validação
+//            System.out.println("\nResumo do grafo:");
+//            terrenoGraph.getGraph().vertexSet().forEach(terrainId -> {
+//                System.out.println("Terreno " + terrainId + " está conectado a: " +
+//                        terrenoGraph.getAdjacentTerrains(terrainId));
+//            });
+//
+//            // Testa o grafo com um terreno específico
+//            String testTerrainId = "8"; // Exemplo de terreno para teste
+//            System.out.println("\nTerrenos adjacentes ao terreno " + testTerrainId + ":");
+//            System.out.println(terrenoGraph.getAdjacentTerrains(testTerrainId));
+//
+//        } catch (Exception e) {
+//            System.err.println("Ocorreu um erro ao executar o programa:");
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

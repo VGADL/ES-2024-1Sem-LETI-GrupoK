@@ -14,7 +14,7 @@
     <children>
         <ImageView fitHeight="600.0" fitWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../images/papaiCris.png" />
+                <Image url="@../images/MAPA.png" />
             </image>
         </ImageView>
 

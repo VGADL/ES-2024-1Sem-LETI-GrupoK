@@ -12,12 +12,25 @@ public class CsvReader {
     final private String separator;
     final private List<Map<String, String>> records = new ArrayList<>();
     final private List<String> headers = new ArrayList<>();
-
+    /**
+     * Construtor da classe CsvReader.
+     *
+     * @param filePath O caminho do ficheiro CSV a ser lido.
+     * @param separator O separador utilizado no ficheiro CSV (ex.: vírgula, ponto e vírgula, etc.).
+     */
     public CsvReader(String filePath, String separator) {
         this.filePath = filePath;
         this.separator = separator;
     }
-
+    /**
+     * Lê o ficheiro CSV e armazena os dados em memória.
+     *
+     * O método processa o ficheiro linha por linha. A primeira linha é considerada como o cabeçalho,
+     * enquanto as linhas subsequentes são tratadas como dados. Cada linha de dados é convertida
+     * em um mapa onde as chaves são os nomes das colunas e os valores são os valores dos campos.
+     *
+     * @throws IOException Caso ocorra um erro durante a leitura do ficheiro.
+     */
     public void readFile() throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             // Lê o cabeçalho
@@ -41,11 +54,22 @@ public class CsvReader {
             }
         }
     }
-
+    /**
+     * Obtém a lista de registos lidos do ficheiro CSV.
+     *
+     * Cada registo é representado como um mapa, onde as chaves correspondem aos nomes das colunas
+     * e os valores aos dados das respetivas células.
+     *
+     * @return Lista de registos do ficheiro CSV.
+     */
     public List<Map<String, String>> getRecords() {
         return records;
     }
-
+    /**
+     * Obtém a lista de cabeçalhos das colunas do ficheiro CSV.
+     *
+     * @return Lista de cabeçalhos das colunas.
+     */
     public List<String> getHeaders() {
         return headers;
     }
