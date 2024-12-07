@@ -1,7 +1,7 @@
 package iscteiul.ista.gestaoterritorio;
 
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.io.WKTReader;
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class AreaCalculator {
      *
      * @param administrativeUnitType Tipo de unidade administrativa.
      * @param administrativeUnitName Nome da unidade administrativa (freguesia, município ou distrito).
-     * @param csvReader Objeto CsvReader que contém os registos lidos do arquivo CSV.
+     * @param csvReader Objeto CsvReader que contém os registos lidos do ficheiro CSV.
      * @return A área média das propriedades na unidade administrativa especificada.
      */
     public double calculateAverageAreaByAdministrativeUnit(String administrativeUnitType, String administrativeUnitName, CsvReader csvReader) {
@@ -42,164 +42,148 @@ public class AreaCalculator {
      *
      * @param administrativeUnitType Tipo de unidade administrativa.
      * @param administrativeUnitName Nome da unidade administrativa (freguesia, município ou distrito).
-     * @param csvReader Objeto CsvReader que contém os registos lidos do arquivo CSV.
+     * @param csvReader Objeto CsvReader que contém os registos lidos do ficheiro CSV.
      * @param graphTerreno Grafo dos terrenos ligados por adjacências.
      * @return A área média das propriedades na unidade administrativa, considerando propriedades adjacentes do mesmo proprietário como uma única propriedade.
      */
-    public double calculateAverageAreaWithAdjacentProperties(String administrativeUnitType, String administrativeUnitName, CsvReader csvReader, GraphTerreno graphTerreno) {
-        WKTReader reader = new WKTReader();
-        Map<String, Double> ownerTotalAreaMap = new LinkedHashMap<>(); // Mapa para armazenar a área combinada dos terrenos do mesmo proprietário
+    public double calculateAverageAreaWithAdjacentProperties(
+            String administrativeUnitType,
+            String administrativeUnitName,
+            CsvReader csvReader,
+            GraphTerreno graphTerreno) {
 
-        // Processar os registos CSV e construir o grafo com base nos terrenos adjacentes
-        for (Map<String, String> record : csvReader.getRecords()) {
-            String owner = record.get("OWNER");
-            String areaStr = record.get("Shape_Area");
-            String geometryStr = record.get("geometry");
-            String unit = record.get(administrativeUnitType);
-            String terrainId = record.get("OBJECTID"); // Identificador único do terreno
+        // Map para agrupar terrenos do mesmo proprietário considerando adjacência
+        Map<String, Double> groupedAreas = new HashMap<>();
 
-            if (unit.equalsIgnoreCase(administrativeUnitName)) {
-                try {
-                    double area = Double.parseDouble(areaStr);
+        // Obtém os registos do CSV
+        List<Map<String, String>> records = csvReader.getRecords();
+        Graph<String, DefaultEdge> graph = graphTerreno.getGraph();
 
-                    // Adicionar o terreno como vértice no grafo
-                    graphTerreno.getGraph().addVertex(terrainId);
+        // Filtra os terrenos pertencentes à unidade administrativa especificada
+        for (Map<String, String> record : records) {
+            String adminUnit = record.get(administrativeUnitType); // "Freguesia", "Municipio", etc.
+            String adminName = record.get(administrativeUnitName);
 
-                    // Verificar adjacência com outros terrenos já processados
-                    for (String otherTerrainId : graphTerreno.getGraph().vertexSet()) {
-                        if (!terrainId.equals(otherTerrainId)) {
-                            String otherGeometryStr = csvReader.getRecords().stream()
-                                    .filter(r -> r.get("OBJECTID").equals(otherTerrainId))
-                                    .findFirst()
-                                    .map(r -> r.get("geometry"))
-                                    .orElse(null);
+            if (adminUnit.equalsIgnoreCase(administrativeUnitName)) {
+                String terrainId = record.get("OBJECTID");
 
-                            if (otherGeometryStr != null && arePolygonsAdjacent(geometryStr, otherGeometryStr, reader)) {
-                                graphTerreno.getGraph().addEdge(terrainId, otherTerrainId);
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    System.err.println("Erro ao processar o terreno: " + terrainId);
+                // Ignorar terrenos que não estão no grafo
+                if (!graph.containsVertex(terrainId)) {
+                    // System.err.println("Terreno ignorado pois não está no grafo: " + terrainId);
+                    continue;
+                }
+
+                String owner = record.get("OWNER");
+
+                // Verifica os terrenos adjacentes
+                if (!groupedAreas.containsKey(terrainId)) {
+                    double totalArea = calculateCombinedArea(terrainId, owner, graph, records, new HashSet<>(), graphTerreno);
+                    groupedAreas.put(terrainId, totalArea);
                 }
             }
         }
 
-        // Agrupar terrenos adjacentes do mesmo proprietário
-        Set<String> processedTerrains = new HashSet<>();
-        for (String terrainId : graphTerreno.getGraph().vertexSet()) {
-            if (!processedTerrains.contains(terrainId)) {
-                Set<String> connectedTerrains = new HashSet<>();
-                exploreConnectedTerrains(terrainId, graphTerreno, connectedTerrains);
+        // Calcula a área média
+        double totalGroupedArea = groupedAreas.values().stream().mapToDouble(Double::doubleValue).sum();
+        return totalGroupedArea / groupedAreas.size();
+    }
 
-                double combinedArea = 0;
-                String owner = "";
 
-                for (String connectedTerrainId : connectedTerrains) {
-                    processedTerrains.add(connectedTerrainId);
+    private double calculateCombinedArea(
+            String terrainId,
+            String owner,
+            Graph<String, DefaultEdge> graph,
+            List<Map<String, String>> records,
+            Set<String> visited,
+            GraphTerreno graphTerreno) {
 
-                    // Obter os dados do terreno conectado
-                    Map<String, String> connectedRecord = csvReader.getRecords().stream()
-                            .filter(r -> r.get("OBJECTID").equals(connectedTerrainId))
-                            .findFirst()
-                            .orElse(null);
+        // Adiciona o terreno atual aos visitados
+        visited.add(terrainId);
 
-                    if (connectedRecord != null) {
-                        double area = Double.parseDouble(connectedRecord.get("Shape_Area"));
-                        combinedArea += area;
+        // Obtém a área do terreno atual
+        double totalArea = records.stream()
+                .filter(record -> record.get("OBJECTID").equals(terrainId))
+                .mapToDouble(record -> Double.parseDouble(record.get("Shape_Area")))
+                .sum();
 
-                        // Considerar o mesmo proprietário
-                        if (owner.isEmpty()) {
-                            owner = connectedRecord.get("OWNER");
-                        }
-                    }
+        // Verifica se o terreno atual existe no grafo
+        if (!graph.containsVertex(terrainId)) {
+            System.err.println("Terreno não encontrado no grafo: " + terrainId);
+            return totalArea; // Ignorar terrenos que não estão no grafo
+        }
+
+        // Itera sobre os terrenos adjacentes
+        for (String adjacentTerrainId : graphTerreno.getAdjacentTerrains(terrainId)) {
+            if (!visited.contains(adjacentTerrainId) && graph.containsVertex(adjacentTerrainId)) {
+                // Verifica se o proprietário é o mesmo
+                String adjacentOwner = records.stream()
+                        .filter(record -> record.get("OBJECTID").equals(adjacentTerrainId))
+                        .map(record -> record.get("OWNER"))
+                        .findFirst()
+                        .orElse(null);
+
+                if (adjacentOwner != null && adjacentOwner.equals(owner)) {
+                    // Soma a área do terreno adjacente
+                    totalArea += calculateCombinedArea(adjacentTerrainId, owner, graph, records, visited, graphTerreno);
                 }
-
-                // Atualizar a área total do proprietário
-                ownerTotalAreaMap.put(owner, ownerTotalAreaMap.getOrDefault(owner, 0.0) + combinedArea);
             }
         }
 
-        // Calcular a média das áreas combinadas
-        double totalArea = ownerTotalAreaMap.values().stream().mapToDouble(Double::doubleValue).sum();
-        int propertyCount = ownerTotalAreaMap.size();
-
-        return propertyCount > 0 ? totalArea / propertyCount : 0;
+        return totalArea;
     }
 
-    /**
-     * Função auxiliar para explorar terrenos adjacentes recursivamente.
-     *
-     * @param terrainId Identificação do terreno.
-     * @param graphTerreno Grafo dos terrenos ligados por adjacências.
-     * @param connectedTerrains
-     */
-    private void exploreConnectedTerrains(String terrainId, GraphTerreno graphTerreno, Set<String> connectedTerrains) {
-        connectedTerrains.add(terrainId);
 
-        for (String adjacentTerrain : graphTerreno.getAdjacentTerrains(terrainId)) {
-            if (!connectedTerrains.contains(adjacentTerrain)) {
-                exploreConnectedTerrains(adjacentTerrain, graphTerreno, connectedTerrains);
-            }
-        }
-    }
 
-    private boolean arePolygonsAdjacent(String polygon1, String polygon2, WKTReader reader) {
+
+
+
+
+
+
+    public static void main(String[] args) {
         try {
-            Geometry geom1 = reader.read(polygon1);
-            Geometry geom2 = reader.read(polygon2);
-            return geom1.touches(geom2) || geom1.intersects(geom2);
+            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
+            String delimiter = ";";
+            CsvReader csvReader = new CsvReader(filePath, delimiter);
+            csvReader.readFile();
+
+            // Instanciar a lista de polígonos e processar os registos do CSV
+            PolygonList polygonList = new PolygonList();
+            polygonList.processRecords(csvReader.getRecords());
+
+            // Reduz polygonList para apenas os 100 primeiros polígonos
+            Map<String, String> originalPolygons = polygonList.getPolygons();
+            Map<String, String> reducedPolygons = new LinkedHashMap<>();
+            int count = 0;
+            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
+                if (count >= 1110) break;
+                reducedPolygons.put(entry.getKey(), entry.getValue());
+                count++;
+            }
+            polygonList.setPolygons(reducedPolygons);
+
+            // Construir o grafo com os polígonos reduzidos
+            GraphTerreno graphTerreno = new GraphTerreno();
+            graphTerreno.buildGraph(polygonList);
+
+            AreaCalculator averageArea = new AreaCalculator();
+
+            // Exemplos para teste
+            String unidadeAdministrativa = "Freguesia";
+            String nomeFreguesia = "Arco da Calheta";
+
+            // Calcular a área média para uma freguesia específica
+            double averageAreaFreguesia = averageArea.calculateAverageAreaByAdministrativeUnit(unidadeAdministrativa,nomeFreguesia, csvReader);
+            System.out.println("Área média para a freguesia 'Arco da Calheta': " + averageAreaFreguesia);
+
+            // Calcular a área média para uma freguesia específica
+            double averageAreaFreguesia2 = averageArea.calculateAverageAreaWithAdjacentProperties(unidadeAdministrativa, nomeFreguesia, csvReader, graphTerreno);
+            System.out.println("Área média para a " + unidadeAdministrativa + " '" + nomeFreguesia + "': " + averageAreaFreguesia2);
+
         } catch (Exception e) {
-            System.err.println("Erro ao verificar adjacência: " + e.getMessage());
-            return false;
+            System.err.println("Erro ao processar os dados:");
+            e.printStackTrace();
         }
     }
-
-
-//    public static void main(String[] args) {
-//        try {
-//            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
-//            String delimiter = ";";
-//            CsvReader csvReader = new CsvReader(filePath, delimiter);
-//            csvReader.readFile();
-//
-//            // Instanciar a lista de polígonos e processar os registos do CSV
-//            PolygonList polygonList = new PolygonList();
-//            polygonList.processRecords(csvReader.getRecords());
-//
-//            // Reduz polygonList para apenas os 100 primeiros polígonos
-//            Map<String, String> originalPolygons = polygonList.getPolygons();
-//            Map<String, String> reducedPolygons = new LinkedHashMap<>();
-//            int count = 0;
-//            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
-//                if (count >= 100) break;
-//                reducedPolygons.put(entry.getKey(), entry.getValue());
-//                count++;
-//            }
-//            polygonList.setPolygons(reducedPolygons);
-//
-//            // Construir o grafo com os polígonos reduzidos
-//            GraphTerreno graphTerreno = new GraphTerreno();
-//            graphTerreno.buildGraph(polygonList);
-//
-//            AreaCalculator averageArea = new AreaCalculator();
-//
-//            // Exemplos para teste
-//            String unidadeAdministrativa = "Freguesia";
-//            String nomeFreguesia = "Arco da Calheta";
-//
-//            // Calcular a área média para uma freguesia específica
-//            double averageAreaFreguesia = averageArea.calculateAverageAreaByAdministrativeUnit(unidadeAdministrativa,nomeFreguesia, csvReader);
-//            System.out.println("Área média para a freguesia 'Arco da Calheta': " + averageAreaFreguesia);
-//
-//            // Calcular a área média para uma freguesia específica
-//            double averageAreaFreguesia2 = averageArea.calculateAverageAreaWithAdjacentProperties(unidadeAdministrativa, nomeFreguesia, csvReader, graphTerreno);
-//            System.out.println("Área média para a " + unidadeAdministrativa + " '" + nomeFreguesia + "': " + averageAreaFreguesia2);
-//
-//        } catch (Exception e) {
-//            System.err.println("Erro ao processar os dados:");
-//            e.printStackTrace();
-//        }
-//    }
 
 }
