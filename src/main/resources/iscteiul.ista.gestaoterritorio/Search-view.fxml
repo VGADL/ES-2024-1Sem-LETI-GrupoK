@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iscteiul.ista.gestaoterritorio.GUIController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <ImageView fitHeight="600.0" fitWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -30,7 +30,7 @@
 
          <VBox spacing="10.0">
             <Button onAction="#showAll" text="📄 Mostrar Todos os Terrenos" style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #FF9800; -fx-background-radius: 10;" />
-            <ListView fx:id="listView" prefHeight="350.0" style="-fx-border-color: #B0BEC5; -fx-border-radius: 10;" />
+            <ListView fx:id="listView2" prefHeight="350.0" style="-fx-border-color: #B0BEC5; -fx-border-radius: 10;" />
          </VBox>
       </VBox>
 

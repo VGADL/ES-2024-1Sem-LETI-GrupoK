@@ -1,5 +1,7 @@
 package iscteiul.ista.gestaoterritorio;
 
+import javax.swing.*;
+import java.io.File;
 import java.util.*;
 
 public class PolygonList {
@@ -91,24 +93,43 @@ public class PolygonList {
     public Map<String, String> getPolygons() {
         return polygonMap;
     }
-
-    public static void main(String[] args) {
-        try {
-            // Instancia o CsvReader
-            CsvReader csvReader = new CsvReader("src/main/ficheiros/Madeira-Moodle-1.1.csv", ";");
-            csvReader.readFile();
-
-            // Processa os registos e armazena os polígonos
-            PolygonList polygonList = new PolygonList();
-            polygonList.processRecords(csvReader.getRecords());
-
-            // Devolve os polígonos processados
-            for (Map.Entry<String, String> entry : polygonList.getPolygons().entrySet()) {
-                System.out.println("ID: " + entry.getKey() + " -> " + entry.getValue());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private static File selectedFilePath;
+//    public static void main(String[] args) {
+//
+//
+//        JFileChooser fileChooser = new JFileChooser();
+//        int returnValue = fileChooser.showOpenDialog(null);
+//
+//        if (returnValue == JFileChooser.APPROVE_OPTION) {
+//            selectedFilePath = fileChooser.getSelectedFile();
+//           // mostrarAlerta("Ficheiro Selecionado", null, "Você selecionou o ficheiro: " + selectedFilePath.getName(), Alert.AlertType.INFORMATION);
+//            System.out.println(selectedFilePath.getPath());
+////            try {
+////            csvReader = new CsvReader(selectedFilePath.getPath(), ";");
+////            csvReader.readFile();
+////            } catch (IOException e) {
+////                mostrarAlerta("Erro", "Erro ao carregar o CSV", e.getMessage(), Alert.AlertType.ERROR);
+////            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "sem ficheiro");
+//           // mostrarAlerta("Seleção Cancelada", null, "Nenhum ficheiro foi selecionado.", Alert.AlertType.WARNING);
+//
+////        try {
+////            // Instancia o CsvReader
+////            CsvReader csvReader = new CsvReader("src/main/ficheiros/Madeira-Moodle-1.1.csv", ";");
+////            csvReader.readFile();
+////
+////            // Processa os registos e armazena os polígonos
+////            PolygonList polygonList = new PolygonList();
+////            polygonList.processRecords(csvReader.getRecords());
+////
+////            // Devolve os polígonos processados
+////            for (Map.Entry<String, String> entry : polygonList.getPolygons().entrySet()) {
+////                System.out.println("ID: " + entry.getKey() + " -> " + entry.getValue());
+////            }
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//   }}
 }
 
