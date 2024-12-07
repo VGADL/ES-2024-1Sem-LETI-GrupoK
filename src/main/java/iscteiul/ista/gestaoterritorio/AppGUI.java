@@ -11,6 +11,7 @@ public class AppGUI extends Application {
 
     private static Stage stage;
     private static Scene sceneFicheiro,sceneMenu,sceneSearch,sceneSuggestion,sceneMedia;
+
     /**
      * Método principal de inicialização da aplicação JavaFX.
      *

@@ -12,6 +12,7 @@ public class CsvReader {
     final private String separator;
     final private List<Map<String, String>> records = new ArrayList<>();
     final private List<String> headers = new ArrayList<>();
+
     /**
      * Construtor da classe CsvReader.
      *
@@ -22,6 +23,7 @@ public class CsvReader {
         this.filePath = filePath;
         this.separator = separator;
     }
+
     /**
      * Lê o ficheiro CSV e armazena os dados em memória.
      *
@@ -54,9 +56,9 @@ public class CsvReader {
             }
         }
     }
+
     /**
      * Obtém a lista de registos lidos do ficheiro CSV.
-     *
      * Cada registo é representado como um mapa, onde as chaves correspondem aos nomes das colunas
      * e os valores aos dados das respetivas células.
      *
@@ -74,4 +76,15 @@ public class CsvReader {
         return headers;
     }
 
+    /**
+     * Coloca records no CsvReader
+     *
+     * @param newRecords novo record.
+     */
+    public void setRecords(List<Map<String, String>> newRecords) {
+        records.clear(); // Limpa os registos existentes
+        if (newRecords != null) {
+            records.addAll(newRecords); // Adiciona os novos registos
+        }
+    }
 }

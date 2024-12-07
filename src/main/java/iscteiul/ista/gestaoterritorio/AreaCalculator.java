@@ -142,50 +142,5 @@ public class AreaCalculator {
 
         return totalArea;
     }
-//    public static void main(String[] args) {
-//        try {
-//            String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
-//            String delimiter = ";";
-//            CsvReader csvReader = new CsvReader(filePath, delimiter);
-//            csvReader.readFile();
-//
-//            // Instanciar a lista de polígonos e processar os registos do CSV
-//            PolygonList polygonList = new PolygonList();
-//            polygonList.processRecords(csvReader.getRecords());
-//
-//            // Reduz polygonList para apenas os 100 primeiros polígonos
-//            Map<String, String> originalPolygons = polygonList.getPolygons();
-//            Map<String, String> reducedPolygons = new LinkedHashMap<>();
-//            int count = 0;
-//            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
-//                if (count >= 1110) break;
-//                reducedPolygons.put(entry.getKey(), entry.getValue());
-//                count++;
-//            }
-//            polygonList.setPolygons(reducedPolygons);
-//
-//            // Construir o grafo com os polígonos reduzidos
-//            GraphTerreno graphTerreno = new GraphTerreno();
-//            graphTerreno.buildGraph(polygonList);
-//
-//            AreaCalculator averageArea = new AreaCalculator();
-//
-//            // Exemplos para teste
-//            String unidadeAdministrativa = "Freguesia";
-//            String nomeFreguesia = "Arco da Calheta";
-//
-//            // Calcular a área média para uma freguesia específica
-//            double averageAreaFreguesia = averageArea.calculateAverageAreaByAdministrativeUnit(unidadeAdministrativa,nomeFreguesia, csvReader);
-//            System.out.println("Área média para a freguesia 'Arco da Calheta': " + averageAreaFreguesia);
-//
-//            // Calcular a área média para uma freguesia específica
-//            double averageAreaFreguesia2 = averageArea.calculateAverageAreaWithAdjacentProperties(unidadeAdministrativa, nomeFreguesia, csvReader, graphTerreno);
-//            System.out.println("Área média para a " + unidadeAdministrativa + " '" + nomeFreguesia + "': " + averageAreaFreguesia2);
-//
-//        } catch (Exception e) {
-//            System.err.println("Erro ao processar os dados:");
-//            e.printStackTrace();
-//        }
-//    }
 
 }

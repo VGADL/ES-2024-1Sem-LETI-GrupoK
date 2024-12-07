@@ -56,10 +56,11 @@ public class TerrainProperties {
      * @param coord2 Segunda coordenada.
      * @return true se as coordenadas são adjacentes, false caso contrário.
      */
-    private static boolean areCoordinatesAdjacent(Coordinate coord1, Coordinate coord2) {
+    public static boolean areCoordinatesAdjacent(Coordinate coord1, Coordinate coord2) {
         // Define uma tolerância para considerar como "adjacente".
         double tolerance = 0.001;
-        return Math.hypot(coord1.x - coord2.x, coord1.y - coord2.y) <= tolerance;
+
+        return coord1.distance(coord2) <= tolerance;
     }
 
     /**
@@ -68,7 +69,7 @@ public class TerrainProperties {
      * @param polygon Representação WKT do polígono (ex.: "POLYGON ((...))").
      * @return Lista de coordenadas extraídas do polígono.
      */
-    private static List<Coordinate> extractCoordinates(String polygon) {
+    public static List<Coordinate> extractCoordinates(String polygon) {
         List<Coordinate> coordinates = new ArrayList<>();
 
         // Remove os delimitadores POLYGON (( e os parênteses extras

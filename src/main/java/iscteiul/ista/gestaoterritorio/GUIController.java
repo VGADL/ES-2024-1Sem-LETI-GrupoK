@@ -34,14 +34,14 @@ public class GUIController extends AppGUI{
     private File selectedFile;
     private Boolean fileSelected = false;
     private GraphProprietario graphProprietario; // Grafo de proprietários
-    private PropertiesExchangeSugestion exchangeSugestion; // Sugestões de troca
+    private PropertiesExchangeSuggestion exchangeSugestion; // Sugestões de troca
 
     /**
-     * Método para selecionar e carregar um arquivo CSV.
+     * Método para selecionar e carregar um ficheiro CSV.
      */
     @FXML
     private void selecionarFicheiro() {
-        // Implementação da seleção de arquivo e construção dos dados.
+        // Implementação da seleção de ficheiro e construção dos dados.
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecionar Ficheiro CSV");
         // Define filtros para permitir apenas ficheiros CSV
@@ -127,7 +127,7 @@ public class GUIController extends AppGUI{
         System.exit(0);
     }
     /**
-     * Exibe todos os registros do arquivo CSV.
+     * Exibe todos os registros do ficheiro CSV.
      */
     @FXML
     public void showAll() {
@@ -397,9 +397,9 @@ public class GUIController extends AppGUI{
 
         // Verifica se há conexões
         if (connectedOwners.isEmpty()) {
-            territoriosListView.getItems().add("Nenhuma adjacência encontrada para o proprietário " + owner + ".");
+            territoriosListView.getItems().add("Nenhum vizinho encontrado para o proprietário " + owner + ".");
         } else {
-            territoriosListView.getItems().add("Adjacências para o proprietário " + owner + ":");
+            territoriosListView.getItems().add("Vizinhos do proprietário " + owner + ":");
             territoriosListView.getItems().addAll(connectedOwners);
         }
     }
@@ -413,14 +413,14 @@ public class GUIController extends AppGUI{
             mostrarAlerta("Erro", "Dados ausentes", "Certifique-se de carregar o CSV e construir os grafos antes de gerar sugestões.", Alert.AlertType.ERROR);
             return;
         }
-        exchangeSugestion = new PropertiesExchangeSugestion();
-        List<PropertiesExchangeSugestion.ExchangeSuggestion> suggestions =
+        exchangeSugestion = new PropertiesExchangeSuggestion();
+        List<PropertiesExchangeSuggestion.ExchangeSuggestion> suggestions =
                 exchangeSugestion.generateExchangeSuggestions(csvReader, graphTerreno, graphProprietario);
         displaySuggestions(suggestions);
     }
-    private void displaySuggestions(List<PropertiesExchangeSugestion.ExchangeSuggestion> suggestions) {
+    private void displaySuggestions(List<PropertiesExchangeSuggestion.ExchangeSuggestion> suggestions) {
         StringBuilder sb = new StringBuilder();
-        for (PropertiesExchangeSugestion.ExchangeSuggestion suggestion : suggestions) {
+        for (PropertiesExchangeSuggestion.ExchangeSuggestion suggestion : suggestions) {
             sb.append(suggestion.toString()).append("\n");
         }
         suggestionTextArea.setText(sb.toString());

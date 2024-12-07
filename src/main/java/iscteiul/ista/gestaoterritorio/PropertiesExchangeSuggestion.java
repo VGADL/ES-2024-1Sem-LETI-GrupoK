@@ -4,7 +4,7 @@ import org.jgrapht.Graphs;
 
 import java.util.*;
 
-public class PropertiesExchangeSugestion {
+public class PropertiesExchangeSuggestion {
 
     /**
      * Gera sugestões de troca de propriedades para maximizar a área média por proprietário.
@@ -235,6 +235,43 @@ public class PropertiesExchangeSugestion {
             return potential;
         }
 
+        /**
+         * Obtém o proprietário do primeiro terreno.
+         *
+         * @return Uma {@code String} representando o proprietário do primeiro terreno.
+         */
+        public String getOwner1() {
+            return owner1;
+        }
+
+        /**
+         * Obtém o proprietário do segundo terreno.
+         *
+         * @return Uma {@code String} que representa o proprietário do segundo terreno.
+         */
+        public String getOwner2() {
+            return owner2;
+        }
+
+        /**
+         * Obtém a identificação ou descrição da primeira propriedade.
+         *
+         * @return Uma {@code String} que representa a primeira propriedade.
+         */
+        public String getProperty1() {
+            return property1;
+        }
+
+        /**
+         * Obtém a identificação ou descrição da segunda propriedade.
+         *
+         * @return Uma {@code String} que representa a segunda propriedade.
+         */
+        public String getProperty2() {
+            return property2;
+        }
+
+
         @Override
         public String toString() {
             return "Troca: Proprietário " + owner1 + " e Proprietário " + owner2 +
@@ -244,58 +281,4 @@ public class PropertiesExchangeSugestion {
         }
     }
 
-
-
-//    public static void main(String[] args) {
-//        // Caminho do ficheiro CSV
-//        String filePath = "src/main/ficheiros/Madeira-Moodle-1.1.csv";
-//        String delimiter = ";";
-//
-//        try {
-//            // Ler o ficheiro CSV
-//            CsvReader csvReader = new CsvReader(filePath, delimiter);
-//            csvReader.readFile();
-//
-//            // Instanciar a lista de polígonos e processar os registos do CSV
-//            PolygonList polygonList = new PolygonList();
-//            polygonList.processRecords(csvReader.getRecords());
-//
-//            // Reduz polygonList para apenas os primeiros X polígonos
-//            Map<String, String> originalPolygons = polygonList.getPolygons();
-//            Map<String, String> reducedPolygons = new LinkedHashMap<>();
-//            int count = 0;
-//            for (Map.Entry<String, String> entry : originalPolygons.entrySet()) {
-//                if (count >= 10) break;
-//                reducedPolygons.put(entry.getKey(), entry.getValue());
-//                count++;
-//            }
-//            polygonList.setPolygons(reducedPolygons);
-//
-//            // Construir o grafo de terrenos
-//            GraphTerreno graphTerreno = new GraphTerreno();
-//            graphTerreno.buildGraph(polygonList);
-//
-//            // Criar o grafo de proprietários
-//            GraphProprietario graphProprietario = new GraphProprietario();
-//            graphProprietario.buildGraph(polygonList);
-//
-//            // Instanciar a classe PropertiesExchangeSuggestion
-//            PropertiesExchangeSuggestion suggestionEngine = new PropertiesExchangeSuggestion();
-//
-//            // Gerar sugestões de trocas de propriedades
-//            List<PropertiesExchangeSuggestion.ExchangeSuggestion> suggestions = suggestionEngine.generateExchangeSuggestions(
-//                    csvReader, graphTerreno, graphProprietario
-//            );
-//
-//            // Exibir as sugestões geradas
-//            System.out.println("Sugestões de Troca de Propriedades:");
-//            for (PropertiesExchangeSuggestion.ExchangeSuggestion suggestion : suggestions) {
-//                System.out.println(suggestion);
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("Erro ao executar o programa: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//    }
 }
