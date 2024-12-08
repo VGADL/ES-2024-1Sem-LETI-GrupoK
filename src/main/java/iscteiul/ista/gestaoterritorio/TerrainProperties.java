@@ -7,6 +7,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A classe 'TerrainProperties' fornece métodos para manipulação e análise de terrenos,
+ * especificamente focando-se na verificação de adjacência entre terrenos e polígonos.
+ * Utiliza coordenadas geográficas extraídas de representações de polígonos no formato WKT (Well-Known Text)
+ * para determinar se os terrenos ou polígonos são adjacentes entre si.
+ */
 public class TerrainProperties {
 
     /**

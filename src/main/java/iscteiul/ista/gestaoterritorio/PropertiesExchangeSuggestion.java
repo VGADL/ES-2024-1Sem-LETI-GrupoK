@@ -4,6 +4,12 @@ import org.jgrapht.Graphs;
 
 import java.util.*;
 
+/**
+ * A classe `PropertiesExchangeSuggestion` é responsável por gerar sugestões de trocas de terrenos
+ * entre proprietários, visando maximizar a área média por proprietário após a troca.
+ * Esta classe utiliza grafos de terrenos e proprietários, bem como dados extraídos de um ficheiro CSV, para
+ * calcular e sugerir trocas que potencialmente aumentem a área média das propriedades de cada proprietário.
+ */
 public class PropertiesExchangeSuggestion {
 
     /**
@@ -201,6 +207,9 @@ public class PropertiesExchangeSuggestion {
         return 0;
     }
 
+    /**
+     * Representa uma sugestão de troca de propriedades.
+     */
     public static class ExchangeSuggestion {
         private final String owner1;
         private final String owner2;

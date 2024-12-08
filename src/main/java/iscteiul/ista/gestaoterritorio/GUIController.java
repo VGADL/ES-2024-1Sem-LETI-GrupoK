@@ -12,6 +12,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Controlador da interface gráfica de utilizador (GUI) para o sistema de gestão de território.
+ * Esta classe é responsável pela interação com o utilizador, incluindo a navegação entre diferentes cenas,
+ * manipulação de ficheiros CSV, cálculo de áreas e sugestões de troca de propriedades.
+ * A classe usa a biblioteca JavaFX para os componentes de interface gráfica, como ListViews, TextFields,
+ * Labels e TextArea. A classe também integra funcionalidades de processamento de gráficos e cálculo de áreas
+ * com base nos dados carregados.
+ */
 public class GUIController extends AppGUI{
     @FXML
     private ListView<String> listView;

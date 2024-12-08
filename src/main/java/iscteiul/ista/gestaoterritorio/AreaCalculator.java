@@ -5,6 +5,11 @@ import org.jgrapht.graph.DefaultEdge;
 
 import java.util.*;
 
+/**
+ * Classe que contém métodos para calcular métricas relacionadas às áreas de terrenos.
+ * Os cálculos incluem a média das áreas por unidades administrativas e a média considerando
+ * terrenos adjacentes pertencentes ao mesmo proprietário como apenas um.
+ */
 public class AreaCalculator {
 
     /**

@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.io.File;
 import java.util.*;
 
+/**
+ * A classe `PolygonList` é responsável por processar e armazenar dados geográficos de polígonos
+ * extraídos de um ficheiro CSV, organizando-os num mapa de polígonos com IDs únicos.
+ * Esta classe permite o processamento de registos com múltiplos polígonos, ordenação dos dados e a
+ * recuperação dos polígonos armazenados.
+ */
 public class PolygonList {
     private Map<String, String> polygonMap;
 

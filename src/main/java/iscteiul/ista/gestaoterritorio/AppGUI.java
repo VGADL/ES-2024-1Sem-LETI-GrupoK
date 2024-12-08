@@ -6,7 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/**
+ * Classe responsável por gerir a interface gráfica da aplicação utilizando JavaFX.
+ * Esta classe configura e inicializa as diferentes cenas da aplicação, permitindo a interação
+ * do utilizador com a funcionalidade de gestão de território.
+ */
 public class AppGUI extends Application {
 
     private static Stage stage;

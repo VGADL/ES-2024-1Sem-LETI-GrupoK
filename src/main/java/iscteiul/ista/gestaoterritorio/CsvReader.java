@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe responsável por ler e processar ficheiros CSV.
+ * Permite o carregamento de dados estruturados a partir de ficheiros, armazenando os registos
+ * em memória para posterior utilização em análises ou cálculos.
+ */
 public class CsvReader {
     final private String filePath;
     final private String separator;
